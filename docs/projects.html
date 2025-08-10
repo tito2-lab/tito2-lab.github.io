@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - My GitHub Pages Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        
+        nav li {
+            margin: 0 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #667eea;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .page-header {
+            text-align: center;
+            color: white;
+            padding: 50px 20px;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .page-header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .page-header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out backwards;
+        }
+        
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+        
+        .project-card:hover .project-image::after {
+            animation: shimmer 0.5s ease-out;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-content h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        
+        .project-content p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tech-badge {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .filter-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 10px 0;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>My Projects</h1>
+            <p>A showcase of my work and contributions</p>
+        </div>
+        
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+                <button class="filter-btn" onclick="filterProjects('web')">Web Apps</button>
+                <button class="filter-btn" onclick="filterProjects('mobile')">Mobile</button>
+                <button class="filter-btn" onclick="filterProjects('opensource')">Open Source</button>
+            </div>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card" data-category="web">
+                <div class="project-image">🛒</div>
+                <div class="project-content">
+                    <h2>E-Commerce Platform</h2>
+                    <p>A full-featured online shopping platform with cart functionality, payment integration, and admin dashboard for inventory management.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">React</span>
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">MongoDB</span>
+                        <span class="tech-badge">Stripe API</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗 Live Demo</span>
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📂 GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="mobile">
+                <div class="project-image">📱</div>
+                <div class="project-content">
+                    <h2>Task Manager App</h2>
+                    <p>A cross-platform mobile application for managing daily tasks with notifications, categories, and cloud sync functionality.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">React Native</span>
+                        <span class="tech-badge">Firebase</span>
+                        <span class="tech-badge">Redux</span>
+                        <span class="tech-badge">Expo</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗 Live Demo</span>
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📂 GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="opensource">
+                <div class="project-image">🔧</div>
+                <div class="project-content">
+                    <h2>CLI Developer Tool</h2>
+                    <p>A command-line tool that automates common development tasks, boilerplate generation, and project scaffolding for faster development.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">Commander.js</span>
+                        <span class="tech-badge">Chalk</span>
+                        <span class="tech-badge">NPM</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>📦 NPM</span>
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📂 GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="web">
+                <div class="project-image">📊</div>
+                <div class="project-content">
+                    <h2>Analytics Dashboard</h2>
+                    <p>Real-time data visualization dashboard with interactive charts, customizable widgets, and export functionality for business intelligence.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">Vue.js</span>
+                        <span class="tech-badge">D3.js</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">PostgreSQL</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗 Live Demo</span>
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📂 GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="web">
+                <div class="project-image">💬</div>
+                <div class="project-content">
+                    <h2>Real-time Chat App</h2>
+                    <p>A modern chat application with real-time messaging, file sharing, video calls, and end-to-end encryption for secure communication.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">React</span>
+                        <span class="tech-badge">Socket.io</span>
+                        <span class="tech-badge">WebRTC</span>
+                        <span class="tech-badge">Express</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗 Live Demo</span>
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📂 GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="opensource">
+                <div class="project-image">📚</div>
+                <div class="project-content">
+                    <h2>Documentation Generator</h2>
+                    <p>Automated documentation generator that creates beautiful, searchable documentation from code comments and markdown files.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">TypeScript</span>
+                        <span class="tech-badge">Markdown</span>
+                        <span class="tech-badge">Webpack</span>
+                        <span class="tech-badge">Jest</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <span>🔗 Live Demo</span>
+                        </a>
+                        <a href="#" class="project-link">
+                            <span>📂 GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && btn.textContent === 'All') ||
+                    (category === 'web' && btn.textContent === 'Web Apps') ||
+                    (category === 'opensource' && btn.textContent === 'Open Source')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter cards
+            cards.forEach((card, index) => {
+                const cardCategory = card.dataset.category;
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'block';
+                    card.style.animation = `slideUp 0.6s ease-out backwards`;
+                    card.style.animationDelay = `${index * 0.1}s`;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

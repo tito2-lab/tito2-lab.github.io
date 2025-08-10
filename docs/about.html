@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - My GitHub Pages Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        
+        nav li {
+            margin: 0 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #667eea;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 50px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            margin-top: 40px;
+        }
+        
+        .profile-section {
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 4em;
+            color: white;
+        }
+        
+        .bio-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .bio-section p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .skills {
+            margin-top: 30px;
+        }
+        
+        .skills h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            transform: scale(1.05);
+        }
+        
+        .timeline {
+            margin-top: 50px;
+        }
+        
+        .timeline h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 30px;
+            animation: slideIn 0.6s ease-out backwards;
+        }
+        
+        .timeline-item:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            animation-delay: 0.4s;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #667eea;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            width: 1px;
+            height: calc(100% + 15px);
+            background: #667eea;
+            opacity: 0.3;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .timeline-item h3 {
+            color: #764ba2;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-date {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 10px 0;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            <h1>About Me</h1>
+            
+            <div class="about-grid">
+                <div class="profile-section">
+                    <div class="profile-img">👨‍💻</div>
+                    <h2>John Developer</h2>
+                    <p>Full Stack Developer</p>
+                </div>
+                
+                <div class="bio-section">
+                    <h2>Hello! I'm a passionate developer</h2>
+                    <p>
+                        I love creating innovative solutions and building applications that make a difference. 
+                        With a strong foundation in both front-end and back-end technologies, I enjoy tackling 
+                        complex problems and turning ideas into reality.
+                    </p>
+                    <p>
+                        When I'm not coding, you can find me exploring new technologies, contributing to open-source 
+                        projects, or sharing my knowledge through blog posts and tutorials. I believe in continuous 
+                        learning and staying up-to-date with the latest industry trends.
+                    </p>
+                    
+                    <div class="skills">
+                        <h3>Technical Skills</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">AWS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <h2>My Journey</h2>
+                
+                <div class="timeline-item">
+                    <h3>Started Learning to Code</h3>
+                    <div class="timeline-date">2020</div>
+                    <p>Began my coding journey with HTML, CSS, and JavaScript. Built my first website and fell in love with web development.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>First Open Source Contribution</h3>
+                    <div class="timeline-date">2021</div>
+                    <p>Made my first contribution to an open-source project. Learned about collaboration and version control with Git.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Completed Full Stack Bootcamp</h3>
+                    <div class="timeline-date">2022</div>
+                    <p>Intensive training in modern web development technologies including React, Node.js, and database management.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Launched First Major Project</h3>
+                    <div class="timeline-date">2023</div>
+                    <p>Successfully deployed a full-stack application that gained traction in the developer community.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>Continuing the Journey</h3>
+                    <div class="timeline-date">Present</div>
+                    <p>Currently working on exciting projects and always looking for new challenges and opportunities to grow.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
