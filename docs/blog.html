@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - My Personal Posts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        
+        nav li {
+            margin: 0 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #667eea;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+        
+        .blog-header {
+            text-align: center;
+            color: white;
+            padding: 50px 20px;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .blog-header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .blog-header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .blog-controls {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 25px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tag-filter {
+            padding: 8px 16px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .tag-filter:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+        
+        .tag-filter.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .blog-container {
+            display: grid;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .blog-post {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out;
+            cursor: pointer;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .blog-post.featured {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05)), 
+                        rgba(255, 255, 255, 0.98);
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .post-header {
+            padding: 30px;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+        
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .post-date {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .post-category {
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .post-title {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .blog-post:hover .post-title {
+            color: #667eea;
+        }
+        
+        .post-excerpt {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .post-content {
+            padding: 20px 30px 30px;
+        }
+        
+        .post-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .post-tag {
+            padding: 5px 10px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            margin-top: 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        
+        .read-more:hover {
+            transform: translateX(5px);
+        }
+        
+        .post-full {
+            display: none;
+            white-space: pre-wrap;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            line-height: 1.8;
+            color: #444;
+        }
+        
+        .post-full.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .featured-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .no-posts {
+            text-align: center;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            color: #999;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: white;
+            font-size: 1.2em;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 10px 0;
+            }
+            
+            .blog-header h1 {
+                font-size: 2em;
+            }
+            
+            .blog-controls {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="blog-header">
+            <h1>My Blog</h1>
+            <p>Thoughts on AI, Technology, and Personal Development</p>
+        </div>
+        
+        <div class="blog-controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search posts...">
+            </div>
+            <div class="filter-tags" id="filterTags">
+                <button class="tag-filter active" data-tag="all">All Posts</button>
+                <button class="tag-filter" data-tag="AI">AI</button>
+                <button class="tag-filter" data-tag="AIPC">AIPC</button>
+                <button class="tag-filter" data-tag="Web Development">Web Dev</button>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">Loading posts...</div>
+        <div class="blog-container" id="blogContainer"></div>
+    </div>
+    
+    <script>
+        let allPosts = [];
+        let filteredPosts = [];
+        let currentFilter = 'all';
+        
+        // Load posts from JSON
+        async function loadPosts() {
+            try {
+                const response = await fetch('posts.json');
+                const data = await response.json();
+                allPosts = data.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                filteredPosts = [...allPosts];
+                displayPosts();
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                document.getElementById('loading').innerHTML = 'Error loading posts. Please try again later.';
+            }
+        }
+        
+        // Display posts
+        function displayPosts() {
+            const container = document.getElementById('blogContainer');
+            
+            if (filteredPosts.length === 0) {
+                container.innerHTML = '<div class="no-posts">No posts found.</div>';
+                return;
+            }
+            
+            container.innerHTML = filteredPosts.map(post => `
+                <article class="blog-post ${post.featured ? 'featured' : ''}" data-post-id="${post.id}">
+                    <div class="post-header">
+                        <div class="post-meta">
+                            <span class="post-date">${formatDate(post.date)}</span>
+                            <div>
+                                ${post.featured ? '<span class="featured-badge">Featured</span>' : ''}
+                                <span class="post-category">${post.category}</span>
+                            </div>
+                        </div>
+                        <h2 class="post-title">${post.title}</h2>
+                        <p class="post-excerpt">${post.excerpt}</p>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-tags">
+                            ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
+                        </div>
+                        <a href="#" class="read-more" onclick="togglePost(event, ${post.id})">Read more →</a>
+                        <div class="post-full" id="post-${post.id}">${post.content}</div>
+                    </div>
+                </article>
+            `).join('');
+        }
+        
+        // Format date
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+        
+        // Toggle full post content
+        function togglePost(event, postId) {
+            event.preventDefault();
+            const postContent = document.getElementById(`post-${postId}`);
+            const readMore = event.target;
+            
+            if (postContent.classList.contains('show')) {
+                postContent.classList.remove('show');
+                readMore.textContent = 'Read more →';
+            } else {
+                // Close other open posts
+                document.querySelectorAll('.post-full.show').forEach(post => {
+                    post.classList.remove('show');
+                });
+                document.querySelectorAll('.read-more').forEach(link => {
+                    link.textContent = 'Read more →';
+                });
+                
+                postContent.classList.add('show');
+                readMore.textContent = 'Read less ←';
+            }
+        }
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredPosts = currentFilter === 'all' ? [...allPosts] : 
+                    allPosts.filter(post => post.tags.includes(currentFilter));
+            } else {
+                filteredPosts = allPosts.filter(post => {
+                    const matchesSearch = post.title.toLowerCase().includes(searchTerm) ||
+                                         post.excerpt.toLowerCase().includes(searchTerm) ||
+                                         post.content.toLowerCase().includes(searchTerm);
+                    const matchesFilter = currentFilter === 'all' || post.tags.includes(currentFilter);
+                    return matchesSearch && matchesFilter;
+                });
+            }
+            
+            displayPosts();
+        });
+        
+        // Filter functionality
+        document.querySelectorAll('.tag-filter').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                currentFilter = button.dataset.tag;
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                
+                if (currentFilter === 'all') {
+                    filteredPosts = searchTerm ? 
+                        allPosts.filter(post => 
+                            post.title.toLowerCase().includes(searchTerm) ||
+                            post.excerpt.toLowerCase().includes(searchTerm) ||
+                            post.content.toLowerCase().includes(searchTerm)
+                        ) : [...allPosts];
+                } else {
+                    filteredPosts = allPosts.filter(post => {
+                        const matchesFilter = post.tags.includes(currentFilter);
+                        const matchesSearch = !searchTerm || 
+                            post.title.toLowerCase().includes(searchTerm) ||
+                            post.excerpt.toLowerCase().includes(searchTerm) ||
+                            post.content.toLowerCase().includes(searchTerm);
+                        return matchesFilter && matchesSearch;
+                    });
+                }
+                
+                displayPosts();
+            });
+        });
+        
+        // Load posts when page loads
+        loadPosts();
+    </script>
+</body>
+</html>

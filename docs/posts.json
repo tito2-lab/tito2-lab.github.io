@@ -1,0 +1,34 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Starting My AI Journey",
+      "date": "2024-12-19",
+      "category": "AI",
+      "tags": ["AI", "AIPC", "Career"],
+      "excerpt": "After several years as a Wireless Account AE, I've decided to seriously pursue AI alongside my work supporting AIPC.",
+      "content": "After several years as a Wireless Account AE, I've decided to seriously pursue AI alongside my work supporting AIPC. As AI becomes increasingly capable of doing everything, I believe it's more important than ever to document our own original thoughts and ideas.\n\nThis site will serve as a place to record my personal reflections and insights. I want to capture the human perspective and creativity that makes us unique, especially as AI continues to evolve.\n\nMy goals for this blog:\n- Document my learning journey with AI\n- Share insights from working with AIPC\n- Record original thoughts and ideas\n- Build a personal knowledge base",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Understanding AIPC Architecture",
+      "date": "2024-12-20",
+      "category": "Technology",
+      "tags": ["AIPC", "Hardware", "NPU"],
+      "excerpt": "Today I explored the architecture of AI PCs and how NPUs are changing computing.",
+      "content": "AI PCs represent a fundamental shift in personal computing. With dedicated Neural Processing Units (NPUs), these machines can run AI models locally without relying on cloud services.\n\nKey advantages I've discovered:\n- Privacy: Data stays on your device\n- Speed: No network latency\n- Cost: No cloud API fees\n- Reliability: Works offline\n\nThe integration of NPUs alongside traditional CPUs and GPUs creates a heterogeneous computing environment that's optimized for different types of workloads. This is fascinating from both technical and practical perspectives.",
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Claude and GitHub Pages",
+      "date": "2024-12-21",
+      "category": "Web Development",
+      "tags": ["Claude", "GitHub Pages", "Web"],
+      "excerpt": "Built this site with Claude's help and learned about static site generation.",
+      "content": "Today I successfully deployed my personal site on GitHub Pages with Claude's assistance. The process taught me several valuable lessons about static site generation and modern web development.\n\nWhat impressed me:\n- Claude generated a complete, responsive website\n- The deployment process was straightforward\n- GitHub Pages provides free, reliable hosting\n- Version control makes updates easy\n\nThis experience reinforced my belief that AI tools are most powerful when they augment human creativity rather than replace it. I provided the vision and requirements, Claude provided the implementation, and together we created something useful.",
+      "featured": false
+    }
+  ]
+}
